@@ -1,0 +1,31 @@
+---
+- name: General health checks for nodes
+  hosts: mysql_nodes
+  become: yes
+  become_method: sudo
+  tasks:
+    - name: Ping the node
+      ping:
+
+    - name: Check disk usage
+      command: df -h
+      register: disk_usage
+
+    - name: Report disk usage
+      debug:
+        msg: "Disk usage: {{ disk_usage.stdout }}"
+
+    - name: Check memory usage
+      command: free -m
+      register: memory_usage
+
+    - name: Report memory usage
+      debug:
+        msg: "Memory usage: {{ memory_usage.stdout }}"
+
+    - name: Gather OS information
+      setup:
+
+    - name: Display operating system
+      debug:
+        msg: "Operating System: {{ ansible_distribution }} {{ ansible_distribution_version }} ({{ ansible_distribution_release }})"
