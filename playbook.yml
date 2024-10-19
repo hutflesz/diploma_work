@@ -1,5 +1,5 @@
 ---
-- name: Ping MySQL nodes
+- name: Ping all
   hosts: mysql_nodes
   gather_facts: no
   become: yes
